@@ -61,6 +61,32 @@ isProperly(sequence: ")(()")
 isProperly(sequence: "(()())(")
 
 
+///**************4***********///
+
+func countWays(n: Int, steps: [Int]) -> Int {
+    if steps.count == 1 {
+        return steps[0] == 1 ? 2 : 1
+    }
+    var dp = Array(repeating: 0, count: n + 1)
+
+    dp[0] = steps[0] == 1 ? 1 : 0
+    dp[1] = steps[1] == 1 ? dp[0] + 1 : 0
+    for i in 2...n {
+        if i == n {
+            return dp[i - 1] + dp[i - 2]
+        }
+        if steps[i] == 1 {
+            dp[i] = dp[i - 1] + dp[i - 2]
+        } else {
+            dp[i] = 0
+        }
+    }
+    return -1
+}
+countWays(n: 3, steps: [0,1,0])
+countWays(n: 4, steps: [0,1,1,0])
+countWays(n: 5, steps: [1,1,0,1,1])
+
 
 ///**************5***********///
 
@@ -78,4 +104,5 @@ func zeros(N: Int) -> Int {
 zeros(N: 7)
 zeros(N: 12)
 zeros(N: 490)
+
 
